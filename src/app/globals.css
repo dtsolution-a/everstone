@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --raw-ink: #14120f;
+  --raw-ink-soft: #2a2620;
+  --raw-cream: #f7f3ec;
+  --raw-cream-dim: #efe9dd;
+  --raw-stone: #dcd3c2;
+  --raw-gold: #a9835a;
+  --raw-gold-light: #cba876;
+  --raw-gold-deep: #7c5f3c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--raw-ink);
+  --color-ink-soft: var(--raw-ink-soft);
+  --color-cream: var(--raw-cream);
+  --color-cream-dim: var(--raw-cream-dim);
+  --color-stone: var(--raw-stone);
+  --color-gold: var(--raw-gold);
+  --color-gold-light: var(--raw-gold-light);
+  --color-gold-deep: var(--raw-gold-deep);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
+  background: var(--raw-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--raw-ink);
+  color: var(--raw-cream);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--raw-gold);
+  color: var(--raw-ink);
+}
+
+/* Slim gold scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--raw-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--raw-gold-deep);
+  border-radius: 999px;
+  border: 2px solid var(--raw-ink);
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+/* Reusable reveal-on-scroll target (animated by GSAP) */
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px var(--raw-cream);
+  color: transparent;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--raw-gold) 50%,
+    transparent
+  );
+}
+
+.eyebrow {
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--raw-gold-light);
+}
+
+/*
+ * Plain low-opacity texture layer — deliberately NOT using mix-blend-mode.
+ * Blend modes force the compositor onto a GPU path that misrenders (often
+ * washing the page to solid white) on weak/virtualized GPUs, e.g. remote
+ * desktop sessions. A flat opacity layer is compositor-agnostic.
+ */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
