@@ -4,6 +4,12 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
+const STATS = [
+  { value: "2013", label: "Founded" },
+  { value: "2", label: "Countries of Operation" },
+  { value: "13+", label: "Years of Craft" },
+];
+
 export default function BrandStory() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -19,6 +25,29 @@ export default function BrandStory() {
           trigger: sectionRef.current,
           start: "top 75%",
         },
+      });
+
+      // A cream bar wipes off the image left-to-right as it comes into
+      // view, revealing the photo rather than a plain fade.
+      gsap.fromTo(
+        ".story-wipe",
+        { scaleX: 1 },
+        {
+          scaleX: 0,
+          duration: 1.1,
+          ease: "power4.inOut",
+          transformOrigin: "right",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
+        }
+      );
+
+      gsap.from(".story-card", {
+        y: 30,
+        opacity: 0,
+        duration: 0.9,
+        delay: 0.5,
+        ease: "power3.out",
+        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
       });
 
       gsap.to(".story-image", {
@@ -41,19 +70,42 @@ export default function BrandStory() {
       ref={sectionRef}
       className="relative bg-cream text-ink py-28 md:py-40 overflow-hidden"
     >
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 grid lg:grid-cols-12 gap-14 items-center">
-        <div className="lg:col-span-6 relative aspect-[4/5] overflow-hidden">
-          <Image
-            src="/factory.jpg"
-            alt="Everstone manufacturing facility"
-            fill
-            className="story-image object-cover scale-[1.15]"
-            sizes="(min-width: 1024px) 45vw, 90vw"
-          />
-          <div className="absolute inset-0 border border-ink/10" />
+      {/* Oversized ghost year mark for editorial scale */}
+      <div
+        aria-hidden
+        className="pointer-events-none select-none absolute -top-6 md:-top-16 left-1/2 -translate-x-1/2 text-outline-dark font-display font-light leading-none opacity-[0.05] whitespace-nowrap"
+        style={{ fontSize: "clamp(6rem, 20vw, 20rem)" }}
+      >
+        Est. 2013
+      </div>
+
+      <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 grid lg:grid-cols-12 gap-16 lg:gap-10 items-center">
+        <div className="lg:col-span-6 relative">
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <Image
+              src="/hero.jpg"
+              alt="Everstone surfaces"
+              fill
+              className="story-image object-cover scale-[1.15]"
+              sizes="(min-width: 1024px) 45vw, 90vw"
+            />
+            <div className="absolute inset-0 border border-ink/10" />
+            {/* Wipe reveal cover */}
+            <div className="story-wipe absolute inset-0 bg-cream" />
+          </div>
+
+          {/* Floating stat card overlapping the image corner */}
+          <div className="story-card absolute -bottom-8 -right-4 sm:-right-8 bg-ink text-cream px-7 py-6 max-w-[210px] shadow-[0_25px_50px_-15px_rgba(0,0,0,0.4)]">
+            <p className="font-display text-4xl text-gold-light leading-none">
+              13+
+            </p>
+            <p className="text-xs tracking-wide text-cream/60 mt-2">
+              Years engineering porcelain surfaces
+            </p>
+          </div>
         </div>
 
-        <div className="lg:col-span-6">
+        <div className="lg:col-span-6 lg:pl-6">
           <p className="story-reveal eyebrow !text-gold-deep mb-6">
             Our Story
           </p>
@@ -77,19 +129,17 @@ export default function BrandStory() {
             without compromise.
           </p>
 
-          <div className="story-reveal grid grid-cols-2 gap-8 max-w-md">
-            <div>
-              <p className="font-display text-3xl text-gold-deep">2013</p>
-              <p className="text-xs tracking-wide text-ink/50 mt-1">
-                Founded
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-3xl text-gold-deep">2</p>
-              <p className="text-xs tracking-wide text-ink/50 mt-1">
-                Countries of Operation
-              </p>
-            </div>
+          <div className="story-reveal flex flex-wrap gap-x-10 gap-y-6 pt-8 border-t border-ink/10">
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <p className="font-display text-3xl text-gold-deep">
+                  {s.value}
+                </p>
+                <p className="text-xs tracking-wide text-ink/50 mt-1 max-w-[9rem]">
+                  {s.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

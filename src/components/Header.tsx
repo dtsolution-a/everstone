@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { nav, contact } from "@/data/site";
+import TextRoll from "./ui/TextRoll";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +47,7 @@ export default function Header() {
               href={item.href}
               className="text-sm tracking-wide text-cream/80 hover:text-gold-light transition-colors relative group"
             >
-              {item.label}
+              <TextRoll>{item.label}</TextRoll>
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold-light transition-all duration-300 group-hover:w-full" />
             </a>
           ))}

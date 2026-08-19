@@ -8,14 +8,16 @@ import TiltCards from "./hero/TiltCards";
 export default function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
+  const luxuryRef = useRef<HTMLSpanElement | null>(null);
+  const servedRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.8, delay: 0.3 })
         .from(
-          ".hero-line",
-          { yPercent: 120, opacity: 0, duration: 1.1, stagger: 0.12 },
+          ".hero-headline",
+          { yPercent: 120, opacity: 0, duration: 1.1 },
           "-=0.4"
         )
         .from(".hero-sub", { opacity: 0, y: 20, duration: 0.9 }, "-=0.5")
@@ -25,6 +27,25 @@ export default function Hero() {
           { opacity: 0, duration: 1 },
           "-=0.4"
         );
+
+      // "LUXURY" swaps for "SERVED" over the first stretch of scroll —
+      // the "Luxury Served" motif, driven by the same section scroll used
+      // for the tilted card fan behind it.
+      gsap.set(servedRef.current, { yPercent: 100, opacity: 0 });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            // A plain "+=60%" end isn't reliably resolved by ScrollTrigger
+            // without a reference point — use an explicit pixel distance
+            // (60% of the viewport height) instead, which is unambiguous.
+            end: `+=${Math.round(window.innerHeight * 0.6)}`,
+            scrub: true,
+          },
+        })
+        .to(luxuryRef.current, { yPercent: -100, opacity: 0, ease: "none" }, 0)
+        .to(servedRef.current, { yPercent: 0, opacity: 1, ease: "none" }, 0);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -60,14 +81,20 @@ export default function Hero() {
           </p>
           <h1
             ref={headlineRef}
-            className="font-display font-light text-[13vw] sm:text-[9vw] lg:text-[6.4vw] leading-[0.95] text-cream max-w-4xl"
+            className="font-display font-light text-5xl sm:text-6xl lg:text-7xl leading-none text-cream"
           >
-            <span className="block overflow-hidden">
-              <span className="hero-line block">Surfaces that</span>
-            </span>
-            <span className="block overflow-hidden">
-              <span className="hero-line block italic text-gold-light">
-                outlast the trend.
+            <span className="hero-headline relative block overflow-hidden h-[1.15em]">
+              <span
+                ref={luxuryRef}
+                className="absolute inset-0 flex items-center tracking-[0.04em]"
+              >
+                Luxury
+              </span>
+              <span
+                ref={servedRef}
+                className="absolute inset-0 flex items-center italic text-gold-light tracking-[0.04em]"
+              >
+                Served
               </span>
             </span>
           </h1>

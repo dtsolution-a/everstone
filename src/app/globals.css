@@ -69,6 +69,12 @@ body {
   color: transparent;
 }
 
+/* Same ghost-wordmark treatment, tuned for light (bg-cream) sections. */
+.text-outline-dark {
+  -webkit-text-stroke: 1px var(--raw-ink);
+  color: transparent;
+}
+
 .hairline {
   height: 1px;
   background: linear-gradient(
