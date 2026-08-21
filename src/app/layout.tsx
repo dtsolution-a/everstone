@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import Preloader from "@/components/Preloader";
+import PeelReveal from "@/components/hero/PeelReveal";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-ink text-cream antialiased">
         <div className="grain" />
-        <Preloader />
+        <PeelReveal />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

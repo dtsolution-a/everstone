@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { contact } from "@/data/site";
-import TiltCards from "./hero/TiltCards";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -13,24 +12,27 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.8, delay: 0.3 })
-        .from(
-          ".hero-headline",
-          { yPercent: 120, opacity: 0, duration: 1.1 },
-          "-=0.4"
-        )
-        .from(".hero-sub", { opacity: 0, y: 20, duration: 0.9 }, "-=0.5")
-        .from(".hero-cta", { opacity: 0, y: 16, duration: 0.8 }, "-=0.6")
-        .from(
-          ".hero-scroll-cue",
-          { opacity: 0, duration: 1 },
-          "-=0.4"
-        );
+      const playIntro = () => {
+        gsap
+          .timeline({ defaults: { ease: "power3.out" } })
+          .from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.8 })
+          .from(".hero-headline", { yPercent: 120, opacity: 0, duration: 1.1 }, "-=0.4")
+          .from(".hero-sub", { opacity: 0, y: 20, duration: 0.9 }, "-=0.5")
+          .from(".hero-cta", { opacity: 0, y: 16, duration: 0.8 }, "-=0.6")
+          .from(".hero-scroll-cue", { opacity: 0, duration: 1 }, "-=0.4");
+      };
 
-      // "LUXURY" swaps for "SERVED" over the first stretch of scroll —
-      // the "Luxury Served" motif, driven by the same section scroll used
-      // for the tilted card fan behind it.
+      // The headline entrance waits for PeelReveal's intro to finish so
+      // it doesn't animate in behind the still-closed peel panels — see
+      // PeelReveal.tsx, which dispatches this once the reveal completes
+      // (or immediately, if the intro already played earlier this session).
+      if (typeof window !== "undefined" && sessionStorage.getItem("everstone-intro-seen")) {
+        playIntro();
+      } else {
+        window.addEventListener("everstone:revealed", playIntro, { once: true });
+      }
+
+      // "Luxury" swaps for "Served" over the first stretch of scroll.
       gsap.set(servedRef.current, { yPercent: 100, opacity: 0 });
       gsap
         .timeline({
@@ -46,6 +48,8 @@ export default function Hero() {
         })
         .to(luxuryRef.current, { yPercent: -100, opacity: 0, ease: "none" }, 0)
         .to(servedRef.current, { yPercent: 0, opacity: 1, ease: "none" }, 0);
+
+      return () => window.removeEventListener("everstone:revealed", playIntro);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -57,23 +61,21 @@ export default function Hero() {
       className="relative h-[170vh] w-full bg-ink"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Ambient base image behind the tilted card fan for depth + texture */}
+        {/* Full-bleed looping video behind the hero copy */}
         <div className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-30 scale-110"
-            style={{ backgroundImage: "url('/hero.jpg')" }}
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src="/hero-video-1.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            disablePictureInPicture
+            preload="auto"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/40 to-ink" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-transparent to-ink/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/30 to-ink" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/50 to-ink/70" />
         </div>
-
-        <TiltCards sectionRef={sectionRef} />
-
-        {/*
-          Sits above the card fan but below the text, so the headline
-          column always stays readable even where a card drifts underneath.
-        */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink via-ink/75 sm:via-40% to-transparent" />
 
         <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-center">
           <p className="hero-eyebrow eyebrow mb-6">

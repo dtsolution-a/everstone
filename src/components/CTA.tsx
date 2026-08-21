@@ -37,9 +37,15 @@ export default function CTA() {
       ref={sectionRef}
       className="relative py-40 md:py-56 overflow-hidden bg-ink"
     >
-      <div
-        className="cta-bg absolute inset-0 bg-cover bg-center opacity-40 scale-125"
-        style={{ backgroundImage: "url('/app-hospitality.jpg')" }}
+      <video
+        className="cta-bg absolute inset-0 h-full w-full object-cover opacity-40 scale-125"
+        src="/hero-video-2.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        disablePictureInPicture
+        preload="none"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/80 to-ink" />
 

@@ -31,7 +31,7 @@ export default function Header() {
             alt="Everstone"
             width={180}
             height={180}
-            className={`object-contain transition-all duration-500 ${
+            className={`object-contain brightness-0 invert transition-all duration-500 ${
               scrolled
                 ? "h-20 w-20 md:h-24 md:w-24"
                 : "h-32 w-32 md:h-40 md:w-40"

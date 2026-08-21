@@ -8,6 +8,7 @@ import CTA from "@/components/CTA";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import WhyUs from "@/components/WhyUs";
+import VideoShowcase from "@/components/VideoShowcase";
 import InstagramFeed from "@/components/InstagramFeed";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -26,6 +27,7 @@ export default function Home() {
         <Stats />
         <Testimonials />
         <WhyUs />
+        <VideoShowcase />
         <InstagramFeed />
         <FAQ />
       </main>
