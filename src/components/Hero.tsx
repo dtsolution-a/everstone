@@ -77,7 +77,17 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/50 to-ink/70" />
         </div>
 
-        <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-center">
+        {/*
+          Bottom-anchored, not vertically centered — this is what actually
+          makes the header/text overlap impossible rather than just
+          unlikely. Centered content's distance from the fixed header
+          shrinks as the viewport gets shorter (laptops, landscape
+          phones, browser windows resized short) until they collide.
+          Anchoring to the bottom with a fixed safety margin keeps a
+          guaranteed gap from the header at any viewport height, since
+          the header only ever occupies the top of the screen.
+        */}
+        <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-[clamp(64px,14vh,128px)]">
           <p className="hero-eyebrow eyebrow mb-6">
             Everstone Building Materials LLC — Est. 2013
           </p>

@@ -20,12 +20,20 @@ export default function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-ink border-b border-gold-deep/30 py-3"
-          : "bg-transparent py-6"
+          ? "bg-ink border-b border-gold-deep/30 py-[clamp(8px,2vh,12px)]"
+          : "bg-transparent py-[clamp(12px,3vh,24px)]"
       }`}
     >
       <div className="mx-auto max-w-[1440px] px-6 md:px-10 flex items-center justify-between">
         <a href="#top" className="flex items-center shrink-0">
+          {/*
+            Sized with clamp() against viewport HEIGHT (vh), not just
+            width — a large logo is what was eating the vertical space
+            that caused the header to collide with the hero text on short
+            viewports (laptops, resized windows). Scaling it down as
+            height shrinks keeps a real gap at any window size, rather
+            than just at the widths this happened to be tested at.
+          */}
           <Image
             src="/logo.png"
             alt="Everstone"
@@ -33,8 +41,8 @@ export default function Header() {
             height={180}
             className={`object-contain brightness-0 invert transition-all duration-500 ${
               scrolled
-                ? "h-20 w-20 md:h-24 md:w-24"
-                : "h-32 w-32 md:h-40 md:w-40"
+                ? "h-[clamp(48px,7vh,96px)] w-[clamp(48px,7vh,96px)]"
+                : "h-[clamp(64px,12vh,160px)] w-[clamp(64px,12vh,160px)]"
             }`}
             priority
           />
