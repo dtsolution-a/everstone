@@ -86,7 +86,7 @@ export const stats = [
   { value: 10, suffix: "+", label: "In-house Designers" },
   { value: 500, suffix: "+", label: "Projects Delivered" },
   { value: 25, suffix: "+", label: "Showroom Partners" },
-  { value: 13, suffix: "", label: "Years Since 2013" },
+  { value: 15, suffix: "+", label: "Years of Experience" },
 ];
 
 export const faqs = [
@@ -96,7 +96,7 @@ export const faqs = [
   },
   {
     q: "Where are Everstone tiles made?",
-    a: "Everstone Building Materials LLC has been operating since 2013, with manufacturing facilities in India and dedicated warehousing across the UAE.",
+    a: "Everstone Building Materials LLC brings over 15 years of industry experience, with manufacturing facilities in India and dedicated warehousing across the UAE.",
   },
   {
     q: "What finishes are available?",

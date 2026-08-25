@@ -6,37 +6,37 @@ import { gsap } from "@/lib/gsap";
 const REVIEWS = [
   {
     name: "Ar. Rohan Mehta",
-    role: "Principal Architect, Studio Mehta",
+    role: "Principal Architect",
     quote:
       "Everstone's large-format porcelain gave us the seamless, monolithic look our client wanted — without compromising on lead times.",
   },
   {
     name: "Faisal Al Marri",
-    role: "Project Director, Al Marri Contracting",
+    role: "Project Director",
     quote:
       "Consistent batch quality and a warehouse that actually has stock when you need it. That's rare in this market.",
   },
   {
     name: "Priya Nair",
-    role: "Interior Designer, Nair & Co.",
+    role: "Interior Designer",
     quote:
       "The wooden-finish collection is indistinguishable from real timber in photographs — clients are consistently surprised.",
   },
   {
     name: "Omar Haddad",
-    role: "Development Manager, Haddad Properties",
+    role: "Development Manager",
     quote:
       "We've specified Everstone across three residential towers now. Zero batch-to-batch shade variance complaints.",
   },
   {
     name: "Sana Iqbal",
-    role: "Design Lead, Iqbal Interiors",
+    role: "Design Lead",
     quote:
       "Their outdoor anti-slip range solved a poolside safety brief that three other suppliers couldn't.",
   },
   {
     name: "Karan Sethi",
-    role: "Site Engineer, Sethi Build",
+    role: "Site Engineer",
     quote:
       "Straightforward specification documents, fast dealer support, and tiles that arrive exactly as sampled.",
   },

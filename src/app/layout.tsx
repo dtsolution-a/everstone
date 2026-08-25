@@ -20,7 +20,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Everstone | Sophisticated Porcelain Surfaces",
   description:
-    "Everstone Building Materials LLC — premier porcelain tile brand crafting large-format surfaces for residential, commercial and hospitality projects across the UAE since 2013.",
+    "Everstone Building Materials LLC — premier porcelain tile brand crafting large-format surfaces for residential, commercial and hospitality projects across the UAE, backed by 15+ years of industry experience.",
   metadataBase: new URL("https://everstonetiles.ae"),
   openGraph: {
     title: "Everstone | Sophisticated Porcelain Surfaces",

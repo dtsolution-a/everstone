@@ -89,7 +89,7 @@ export default function Hero() {
         */}
         <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col justify-end pb-[clamp(64px,14vh,128px)]">
           <p className="hero-eyebrow eyebrow mb-6">
-            Everstone Building Materials LLC — Est. 2013
+            Everstone Building Materials LLC — 15+ Years of Craft
           </p>
           <h1
             ref={headlineRef}

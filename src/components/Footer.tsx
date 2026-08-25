@@ -59,7 +59,7 @@ export default function Footer() {
               alt="Everstone"
               width={168}
               height={168}
-              className="h-36 w-36 object-contain mb-6"
+              className="h-36 w-36 object-contain brightness-0 invert mb-6"
             />
             <p className="text-cream/60 leading-relaxed max-w-sm mb-8">
               Premier porcelain tile brand dedicated to the curation of

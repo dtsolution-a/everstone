@@ -41,7 +41,7 @@ export default function Header() {
             height={180}
             className={`object-contain brightness-0 invert transition-all duration-500 ${
               scrolled
-                ? "h-[clamp(48px,7vh,96px)] w-[clamp(48px,7vh,96px)]"
+                ? "h-[clamp(96px,14vh,192px)] w-[clamp(96px,14vh,192px)]"
                 : "h-[clamp(64px,12vh,160px)] w-[clamp(64px,12vh,160px)]"
             }`}
             priority

@@ -5,9 +5,8 @@ import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const STATS = [
-  { value: "2013", label: "Founded" },
+  { value: "15+", label: "Years of Craft" },
   { value: "2", label: "Countries of Operation" },
-  { value: "13+", label: "Years of Craft" },
 ];
 
 export default function BrandStory() {
@@ -76,7 +75,7 @@ export default function BrandStory() {
         className="pointer-events-none select-none absolute -top-6 md:-top-16 left-1/2 -translate-x-1/2 text-outline-dark font-display font-light leading-none opacity-[0.05] whitespace-nowrap"
         style={{ fontSize: "clamp(6rem, 20vw, 20rem)" }}
       >
-        Est. 2013
+        15+ Years
       </div>
 
       <div className="relative mx-auto max-w-[1440px] px-6 md:px-10 grid lg:grid-cols-12 gap-16 lg:gap-10 items-center">
@@ -97,7 +96,7 @@ export default function BrandStory() {
           {/* Floating stat card overlapping the image corner */}
           <div className="story-card absolute -bottom-8 -right-4 sm:-right-8 bg-ink text-cream px-7 py-6 max-w-[210px] shadow-[0_25px_50px_-15px_rgba(0,0,0,0.4)]">
             <p className="font-display text-4xl text-gold-light leading-none">
-              13+
+              15+
             </p>
             <p className="text-xs tracking-wide text-cream/60 mt-2">
               Years engineering porcelain surfaces
@@ -110,17 +109,17 @@ export default function BrandStory() {
             Our Story
           </p>
           <h2 className="story-reveal font-display font-light text-4xl md:text-5xl lg:text-[3.6rem] leading-[1.05] mb-8">
-            Thirteen years of{" "}
+            Over 15 years of{" "}
             <em className="text-gold-deep not-italic font-normal">
               precision manufacturing
             </em>
             .
           </h2>
           <p className="story-reveal text-ink/70 text-base md:text-lg leading-relaxed mb-6 max-w-xl">
-            Since 2013, Everstone Building Materials LLC has grown into a
-            premier porcelain tile brand — dedicated to the curation of
-            sophisticated surface solutions for the region&rsquo;s most
-            demanding projects.
+            With over 15 years of industry experience, Everstone Building
+            Materials LLC has grown into a premier porcelain tile brand —
+            dedicated to the curation of sophisticated surface solutions
+            for the region&rsquo;s most demanding projects.
           </p>
           <p className="story-reveal text-ink/70 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             Our manufacturing facilities in India give us direct control
