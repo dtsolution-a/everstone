@@ -91,19 +91,31 @@ export const stats = [
 
 export const faqs = [
   {
-    q: "What sizes does Everstone manufacture?",
-    a: "Our porcelain formats range from 30×60 cm up to large-format 120×320 cm slabs, plus 60×60 cm and 60×120 cm outdoor tiles in 15–20 mm thickness.",
+    q: "What is the difference between porcelain and ceramic tiles?",
+    a: "Porcelain tiles are denser, stronger and more water-resistant, making them ideal for floors, bathrooms, outdoor areas and high-traffic spaces. Ceramic tiles are lighter and more economical, making them a popular choice for walls and low-traffic areas.",
   },
   {
-    q: "Where are Everstone tiles made?",
-    a: "Everstone Building Materials LLC brings over 15 years of industry experience, with manufacturing facilities in India and dedicated warehousing across the UAE.",
+    q: "Can floor tiles be installed on walls, or wall tiles on floors?",
+    a: "Yes — floor tiles can generally be used on walls if suitable for wall installation. Wall tiles should not be used on floors unless specifically rated for floor use.",
   },
   {
-    q: "What finishes are available?",
-    a: "Glossy, matt, satin, lapato, leather and wooden-look finishes, including anti-slip options engineered specifically for outdoor applications.",
+    q: "How much extra tile should I purchase for wastage?",
+    a: "We recommend purchasing 5–10% extra tiles to account for cutting, breakage and future replacements — more for complex patterns or diagonal installations.",
   },
   {
-    q: "Do you supply dealers and contractors?",
-    a: "Yes — we work directly with dealers, contractors and developers across the UAE, supported by full catalogue and specification documentation.",
+    q: "Do you provide delivery?",
+    a: "Yes — we can arrange delivery for your purchased materials. Delivery charges and timing may depend on the order quantity and delivery location.",
+  },
+  {
+    q: "Do you supply tiles for villas and commercial projects?",
+    a: "Yes — we supply tiles and surface materials for villas, apartments, shops, offices, restaurants and other commercial projects.",
+  },
+  {
+    q: "How can I choose the right tile for my project?",
+    a: "Our sales team can help you select the suitable size, design, finish and application based on your space, budget and project requirements.",
+  },
+  {
+    q: "Do you have large-format tiles and slabs?",
+    a: "Yes — we offer a selection of large-format tiles and slabs suitable for floors, walls, bathrooms, kitchens and feature areas.",
   },
 ];
