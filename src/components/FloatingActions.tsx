@@ -4,32 +4,38 @@ import { useEffect, useState } from "react";
 import { contact } from "@/data/site";
 
 /**
- * Bottom-right floating action stack: a "back to top" button that only
- * shows once you've scrolled away from the top (no point offering it at
- * the top), and a WhatsApp button that hides once the footer scrolls
- * into view — the footer already carries WhatsApp/contact info, so a
- * floating duplicate over it is redundant clutter rather than a shortcut.
+ * Bottom-right floating action stack: a "scroll to top" button that only
+ * shows once you've scrolled away from the top, and a WhatsApp button
+ * that hides once the footer scrolls into view — the footer already
+ * carries WhatsApp/contact info, so a floating duplicate over it would
+ * be redundant.
+ *
+ * Visibility is driven by plain scroll-position math (footer's distance
+ * from the viewport) rather than IntersectionObserver — the observer
+ * version never reliably fired in production, so this sticks to the
+ * same scroll-listener approach already proven to work for "past top".
  */
 export default function FloatingActions() {
   const [pastTop, setPastTop] = useState(false);
   const [nearFooter, setNearFooter] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setPastTop(window.scrollY > 400);
+    const onScroll = () => {
+      setPastTop(window.scrollY > 400);
+
+      const footer = document.querySelector("footer");
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top;
+        setNearFooter(footerTop < window.innerHeight * 0.85);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (!footer) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setNearFooter(entry.isIntersecting),
-      { rootMargin: "0px 0px -20% 0px" }
-    );
-    observer.observe(footer);
-    return () => observer.disconnect();
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
@@ -67,11 +73,15 @@ function TopIcon() {
   );
 }
 
+// A simplified, cleanly-recognizable "chat bubble + handset" glyph — the
+// standard functional pictogram used across business sites to link out
+// to WhatsApp, redrawn as a plain shape rather than a fussy hand-traced
+// path (which was rendering as a slightly warped blob at small sizes).
 function WhatsAppIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347Z" />
-      <path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.462 3.48 1.34 4.995L2 22l5.117-1.342a9.96 9.96 0 0 0 4.887 1.246h.004c5.514 0 9.997-4.483 9.997-9.997 0-2.67-1.04-5.18-2.928-7.069a9.935 9.935 0 0 0-7.073-2.835Zm5.845 15.842c-.712.712-1.664 1.211-2.71 1.412a9.28 9.28 0 0 1-1.808.163 8.26 8.26 0 0 1-4.147-1.116l-.297-.176-3.037.797.812-2.96-.194-.304a8.246 8.246 0 0 1-1.264-4.418c0-4.577 3.723-8.3 8.302-8.3a8.24 8.24 0 0 1 5.87 2.432 8.24 8.24 0 0 1 2.428 5.872c0 2.218-.862 4.303-2.427 5.87l.072.058-.6.67Z" />
+    <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor">
+      <path d="M16.004 3C9.02 3 3.354 8.665 3.354 15.65c0 2.25.59 4.396 1.71 6.29L3 29l7.24-1.987a12.58 12.58 0 0 0 5.764 1.418h.005c6.984 0 12.65-5.665 12.65-12.65C28.658 8.665 22.988 3 16.004 3Zm0 22.94a10.24 10.24 0 0 1-5.221-1.43l-.374-.222-4.297 1.178 1.148-4.19-.244-.43a10.24 10.24 0 0 1-1.564-5.396c0-5.666 4.611-10.276 10.277-10.276 5.666 0 10.276 4.61 10.276 10.276S21.67 25.94 16.004 25.94Z" />
+      <path d="M21.62 18.318c-.307-.154-1.814-.895-2.096-.998-.281-.102-.486-.153-.69.153-.204.307-.792.997-.97 1.203-.179.205-.358.23-.665.077-.307-.154-1.295-.478-2.467-1.522-.912-.813-1.528-1.817-1.706-2.124-.179-.307-.019-.472.134-.625.138-.138.307-.358.46-.537.154-.18.205-.307.307-.512.103-.205.052-.384-.025-.538-.077-.153-.69-1.665-.946-2.281-.249-.598-.502-.517-.69-.527-.179-.008-.383-.01-.588-.01-.204 0-.537.077-.818.384-.281.307-1.073 1.049-1.073 2.56 0 1.51 1.099 2.968 1.252 3.173.153.204 2.164 3.306 5.244 4.635.732.316 1.303.505 1.749.646.735.234 1.404.201 1.933.122.59-.088 1.814-.742 2.07-1.459.256-.716.256-1.33.179-1.459-.077-.128-.282-.204-.59-.358Z" />
     </svg>
   );
 }

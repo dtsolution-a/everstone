@@ -112,7 +112,7 @@ export default function Footer() {
                   {contact.email}
                 </a>
               </li>
-              <li className="max-w-xs">{contact.address}</li>
+              <li className="max-w-xs">Everstone, {contact.address}</li>
             </ul>
           </div>
         </div>
@@ -136,15 +136,6 @@ export default function Footer() {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* Oversized ghost wordmark for scale/brand presence */}
-      <div
-        aria-hidden
-        className="pointer-events-none select-none text-outline font-display font-light leading-none text-center pb-2"
-        style={{ fontSize: "clamp(3.5rem, 16vw, 13rem)", opacity: 0.06 }}
-      >
-        EVERSTONE
       </div>
     </footer>
   );
