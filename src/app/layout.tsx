@@ -3,6 +3,7 @@ import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import PeelReveal from "@/components/hero/PeelReveal";
+import FloatingActions from "@/components/FloatingActions";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="grain" />
         <PeelReveal />
         <SmoothScroll>{children}</SmoothScroll>
+        <FloatingActions />
       </body>
     </html>
   );

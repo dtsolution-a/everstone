@@ -1,6 +1,7 @@
 export const contact = {
   phone: "+971 52 793 3046",
   phoneHref: "tel:+971527933046",
+  whatsapp: "https://wa.me/971527933046",
   email: "sales@everstonetiles.ae",
   address: "Capital Mall, Sheikh Mohamed Bin Zayed City, Abu Dhabi, UAE",
   instagram: "https://instagram.com",
