@@ -83,9 +83,9 @@ export const applications: Application[] = [
 ];
 
 export const stats = [
-  { value: 10, suffix: "+", label: "In-house Designers" },
+  { value: 800, suffix: "+", label: "Designs" },
   { value: 500, suffix: "+", label: "Projects Delivered" },
-  { value: 25, suffix: "+", label: "Showroom Partners" },
+  { value: 300, suffix: "+", label: "Showroom Partners" },
   { value: 15, suffix: "+", label: "Years of Experience" },
 ];
 

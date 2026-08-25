@@ -111,7 +111,7 @@ export default function BrandStory() {
           <h2 className="story-reveal font-display font-light text-4xl md:text-5xl lg:text-[3.6rem] leading-[1.05] mb-8">
             Over 15 years of{" "}
             <em className="text-gold-deep not-italic font-normal">
-              precision manufacturing
+              precision craftsmanship
             </em>
             .
           </h2>
