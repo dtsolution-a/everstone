@@ -17,6 +17,10 @@ const POINTS = [
     title: "Large-Format Specialists",
     copy: "Slabs engineered for seamless, joint-free surfaces at scale.",
   },
+  {
+    title: "Prime Showroom Brands",
+    copy: "Home to Exclusive and Geogres — curated lines for luxury and large-format projects.",
+  },
 ];
 
 export default function WhyUs() {
@@ -47,7 +51,7 @@ export default function WhyUs() {
         </h2>
       </div>
 
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 grid sm:grid-cols-3 gap-px bg-ink/10">
+      <div className="mx-auto max-w-[1440px] px-6 md:px-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
         {POINTS.map((p) => (
           <div
             key={p.title}

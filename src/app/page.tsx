@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import BrandStory from "@/components/BrandStory";
 import Collections from "@/components/Collections";
+import OurBrands from "@/components/OurBrands";
 import TelescopeZoom from "@/components/TelescopeZoom";
 import Applications from "@/components/Applications";
 import Process from "@/components/Process";
@@ -22,6 +23,7 @@ export default function Home() {
         <Hero />
         <BrandStory />
         <Collections />
+        <OurBrands />
         <TelescopeZoom />
         <Applications />
         <Process />

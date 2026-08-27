@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { brands } from "@/data/brands";
 
 const STATS = [
   { value: "15+", label: "Years of Craft" },
@@ -128,7 +130,7 @@ export default function BrandStory() {
             without compromise.
           </p>
 
-          <div className="story-reveal flex flex-wrap gap-x-10 gap-y-6 pt-8 border-t border-ink/10">
+          <div className="story-reveal flex flex-wrap gap-x-10 gap-y-6 pt-8 pb-10 border-t border-ink/10">
             {STATS.map((s) => (
               <div key={s.label}>
                 <p className="font-display text-3xl text-gold-deep">
@@ -139,6 +141,32 @@ export default function BrandStory() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="story-reveal pt-8 border-t border-ink/10">
+            <p className="text-xs tracking-[0.25em] uppercase text-ink/40 mb-5">
+              Our Prime Showroom Brands
+            </p>
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-5">
+              <Link href="/exclusive" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Image
+                  src={brands.exclusive.logo}
+                  alt={brands.exclusive.name}
+                  width={140}
+                  height={40}
+                  className="h-7 w-auto object-contain"
+                />
+              </Link>
+              <Link href="/geogres" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Image
+                  src={brands.geogres.logo}
+                  alt={brands.geogres.name}
+                  width={140}
+                  height={40}
+                  className="h-6 w-auto object-contain"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

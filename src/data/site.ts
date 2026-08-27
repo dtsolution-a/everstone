@@ -17,6 +17,24 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
+export const brandNav = [
+  { label: "Exclusive", href: "/exclusive" },
+  { label: "Geogres", href: "/geogres" },
+];
+
+// Site-wide header nav — real routes (not on-page anchors), shown on
+// every page. Exclusive/Geogres carry their own logo so the header can
+// render a brand mark instead of a plain text label for those two.
+export const mainNav = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Collection", href: "/collection" },
+  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "Exclusive", href: "/exclusive", logo: "/exclusive-logo-dark.png" },
+  { label: "Geogres", href: "/geogres", logo: "/geogres-logo.svg" },
+];
+
 export type Collection = {
   name: string;
   size: string;

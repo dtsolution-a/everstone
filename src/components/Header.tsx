@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { nav, contact } from "@/data/site";
+import Link from "next/link";
+import { mainNav } from "@/data/site";
 import TextRoll from "./ui/TextRoll";
 
 export default function Header() {
@@ -25,7 +26,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto max-w-[1440px] px-6 md:px-10 flex items-center justify-between">
-        <a href="#top" className="flex items-center shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           {/*
             Sized with clamp() against viewport HEIGHT (vh), not just
             width — a large logo is what was eating the vertical space
@@ -46,27 +47,44 @@ export default function Header() {
             }`}
             priority
           />
-        </a>
+        </Link>
 
-        <nav className="hidden lg:flex items-center gap-10">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm tracking-wide text-cream/80 hover:text-gold-light transition-colors relative group"
-            >
-              <TextRoll>{item.label}</TextRoll>
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold-light transition-all duration-300 group-hover:w-full" />
-            </a>
-          ))}
+        <nav className="hidden lg:flex items-center gap-8">
+          {mainNav.map((item) =>
+            item.logo ? (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-label={item.label}
+                className="flex items-center opacity-80 hover:opacity-100 transition-opacity"
+              >
+                <Image
+                  src={item.logo}
+                  alt={item.label}
+                  width={100}
+                  height={28}
+                  className="h-6 w-auto object-contain brightness-0 invert"
+                />
+              </Link>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm tracking-wide text-cream/80 hover:text-gold-light transition-colors relative group"
+              >
+                <TextRoll>{item.label}</TextRoll>
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold-light transition-all duration-300 group-hover:w-full" />
+              </Link>
+            )
+          )}
         </nav>
 
-        <a
-          href={contact.phoneHref}
+        <Link
+          href="/contact"
           className="hidden lg:inline-flex items-center border border-gold-light/50 text-gold-light text-xs tracking-[0.2em] uppercase px-5 py-3 hover:bg-gold-light hover:text-ink transition-colors duration-300"
         >
           Enquire Now
-        </a>
+        </Link>
 
         <button
           aria-label="Toggle menu"
@@ -87,23 +105,44 @@ export default function Header() {
 
       <div
         className={`lg:hidden overflow-hidden transition-all duration-500 ${
-          open ? "max-h-96 mt-4" : "max-h-0"
+          open ? "max-h-[28rem] mt-4" : "max-h-0"
         }`}
       >
         <div className="flex flex-col gap-5 px-6 pb-6">
-          {nav.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="text-cream/85 text-sm tracking-wide"
-            >
-              {item.label}
-            </a>
-          ))}
-          <a href={contact.phoneHref} className="text-gold-light text-sm">
-            {contact.phone}
-          </a>
+          {mainNav.map((item) =>
+            item.logo ? (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="flex items-center"
+              >
+                <Image
+                  src={item.logo}
+                  alt={item.label}
+                  width={100}
+                  height={28}
+                  className="h-6 w-auto object-contain brightness-0 invert"
+                />
+              </Link>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="text-cream/85 text-sm tracking-wide"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="text-gold-light text-sm"
+          >
+            Enquire Now
+          </Link>
         </div>
       </div>
     </header>
