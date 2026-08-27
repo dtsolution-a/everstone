@@ -8,13 +8,18 @@ export const contact = {
   facebook: "https://facebook.com",
 };
 
+// Homepage section anchors. Prefixed with "/" (not bare "#...") because
+// this list is reused by the Footer, which renders on every page — a
+// bare "#collections" only works while already on "/"; from any other
+// route the browser has nothing to scroll to. The "/" prefix makes the
+// link navigate to the homepage first, then land on the section.
 export const nav = [
-  { label: "Collections", href: "#collections" },
-  { label: "Applications", href: "#applications" },
-  { label: "About", href: "#about" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Collections", href: "/#collections" },
+  { label: "Applications", href: "/#applications" },
+  { label: "About", href: "/#about" },
+  { label: "Reviews", href: "/#reviews" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export const brandNav = [

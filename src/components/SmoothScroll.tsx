@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger, useGsapSetup } from "@/lib/gsap";
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useGsapSetup();
 
@@ -43,6 +45,11 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     document.fonts?.ready?.then(resize);
 
     // Let in-page anchor links (#collections etc.) use Lenis' smooth scroll.
+    // Also matches cross-page anchors (e.g. a footer link on /about
+    // pointing to "/#faq") once Next.js has already routed to "/" —
+    // by then the browser sees the link's href resolved against the
+    // current page, so a same-page "#faq" and a cross-page "/#faq"
+    // both end up matching here after the navigation completes.
     const onAnchorClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest("a[href^='#']");
       if (!target) return;
@@ -62,6 +69,47 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       lenis.destroy();
     };
   }, []);
+
+  // Cross-page anchor links (footer "/#faq" clicked from e.g. /about)
+  // land here as a full page load of "/#faq" (that Footer list uses plain
+  // <a> tags, not <Link>, so it's a real navigation, not a client-side
+  // route change). At that point ScrollTrigger-pinned sections above the
+  // target (the Collections carousel in particular) haven't registered
+  // their extra scroll distance yet, so resizing/scrolling Lenis too
+  // early lands short of the real section — same symptom as the
+  // page-bottom issue the initial resize() already works around above.
+  // Retry on a short interval until the target section stops moving
+  // (layout has settled), then do the final scroll.
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const el = document.querySelector(hash) as HTMLElement | null;
+    if (!el) return;
+
+    let lastTop = -Infinity;
+    let stableCount = 0;
+    const id = window.setInterval(() => {
+      const lenis = lenisRef.current;
+      if (!lenis) return;
+      lenis.resize();
+      const top = el.getBoundingClientRect().top;
+      if (Math.abs(top - lastTop) < 1) {
+        stableCount += 1;
+      } else {
+        stableCount = 0;
+      }
+      lastTop = top;
+      lenis.scrollTo(el, { offset: -80, immediate: true });
+      if (stableCount >= 2) window.clearInterval(id);
+    }, 150);
+
+    // Hard stop after 3s so this never lingers indefinitely.
+    const timeout = window.setTimeout(() => window.clearInterval(id), 3000);
+    return () => {
+      window.clearInterval(id);
+      window.clearTimeout(timeout);
+    };
+  }, [pathname]);
 
   return <>{children}</>;
 }
